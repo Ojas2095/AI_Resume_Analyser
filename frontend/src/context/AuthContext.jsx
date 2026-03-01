@@ -61,6 +61,11 @@ export function AuthProvider({ children }) {
         setUserRole(role);
     }
 
+    async function checkUserRole(uid) {
+        const docSnap = await getDoc(doc(db, 'users', uid));
+        return { userRole: docSnap.exists() ? docSnap.data().role : null };
+    }
+
     async function logout() {
         await signOut(auth);
         setUserRole(null);
@@ -74,6 +79,7 @@ export function AuthProvider({ children }) {
         loginWithGoogle,
         signup,
         saveUserRole,
+        checkUserRole,
         logout,
     };
 

@@ -3,6 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { RoleSelectScreen } from './LoginPage';
 
+function getAuthError(err) {
+    const code = err?.code || '';
+    const map = {
+        'auth/email-already-in-use': 'This email is already registered. Please sign in instead.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/weak-password': 'Password must be at least 6 characters.',
+        'auth/too-many-requests': 'Too many attempts. Please wait a moment and try again.',
+        'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
+        'auth/network-request-failed': 'Network error. Please check your connection.',
+    };
+    return map[code] || err.message.replace('Firebase: ', '').replace(/\(auth\/[^)]+\)\.?/g, '').trim() || 'An error occurred. Please try again.';
+}
+
 export default function SignupPage() {
     const { signup, loginWithGoogle, saveUserRole } = useAuth();
     const navigate = useNavigate();
@@ -28,7 +41,7 @@ export default function SignupPage() {
             setPendingUid(result.user.uid);
             setShowRoleSelect(true);
         } catch (err) {
-            setError(err.message.replace('Firebase: ', '').replace(/\(auth.*\)\./g, ''));
+            setError(getAuthError(err));
         } finally {
             setLoading(false);
         }
@@ -46,7 +59,7 @@ export default function SignupPage() {
                 navigate('/');
             }
         } catch (err) {
-            setError(err.message.replace('Firebase: ', '').replace(/\(auth.*\)\./g, ''));
+            setError(getAuthError(err));
         } finally {
             setLoading(false);
         }

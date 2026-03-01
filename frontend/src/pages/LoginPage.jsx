@@ -2,8 +2,25 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+// Maps Firebase error codes to friendly messages
+function getAuthError(err) {
+    const code = err?.code || '';
+    const map = {
+        'auth/email-already-in-use': 'This email is already registered. Please sign in instead.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/user-not-found': 'No account found with this email. Please sign up.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/invalid-credential': 'Incorrect email or password. Please try again.',
+        'auth/too-many-requests': 'Too many attempts. Please wait a moment and try again.',
+        'auth/weak-password': 'Password must be at least 6 characters.',
+        'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
+        'auth/network-request-failed': 'Network error. Please check your connection.',
+    };
+    return map[code] || err.message.replace('Firebase: ', '').replace(/\(auth\/[^)]+\)\.?/g, '').trim() || 'An error occurred. Please try again.';
+}
+
 export default function LoginPage() {
-    const { login, loginWithGoogle, saveUserRole } = useAuth();
+    const { login, loginWithGoogle, saveUserRole, checkUserRole } = useAuth();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -15,17 +32,22 @@ export default function LoginPage() {
     const [showRoleSelect, setShowRoleSelect] = useState(false);
     const [pendingUid, setPendingUid] = useState(null);
 
-    // Simpler email login using the auth context directly
     async function handleSubmit(e) {
         e.preventDefault();
         setError('');
         setLoading(true);
         try {
-            await login(email, password);
-            // AuthContext will update userRole; redirect to home to let App decide
-            navigate('/');
+            const result = await login(email, password);
+            // Check if this user has a role set; if not, show role selection
+            const { userRole: existingRole } = await checkUserRole(result.user.uid);
+            if (!existingRole) {
+                setPendingUid(result.user.uid);
+                setShowRoleSelect(true);
+            } else {
+                navigate('/');
+            }
         } catch (err) {
-            setError(err.message.replace('Firebase: ', '').replace(/\(auth.*\)\./g, ''));
+            setError(getAuthError(err));
         } finally {
             setLoading(false);
         }
@@ -43,7 +65,7 @@ export default function LoginPage() {
                 navigate('/');
             }
         } catch (err) {
-            setError(err.message.replace('Firebase: ', '').replace(/\(auth.*\)\./g, ''));
+            setError(getAuthError(err));
         } finally {
             setLoading(false);
         }
