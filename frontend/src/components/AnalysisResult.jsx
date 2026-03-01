@@ -206,10 +206,16 @@ const AnalysisResult = ({ result }) => {
         >
           Download PDF
         </button>
-        <button className="py-4 glass border border-glass-border-light dark:border-glass-border-dark font-bold rounded-2xl hover:bg-primary/5 transition-all outline-none">
+        <button
+          onClick={() => alert('Portfolio sharing feature coming soon!')}
+          className="py-4 glass border border-glass-border-light dark:border-glass-border-dark font-bold rounded-2xl hover:bg-primary/5 transition-all outline-none"
+        >
           Share Portfolio
         </button>
-        <button className="py-4 bg-foreground-light dark:bg-foreground-dark text-background-light dark:text-background-dark font-bold rounded-2xl hover:opacity-90 transition-all outline-none">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="py-4 bg-foreground-light dark:bg-foreground-dark text-background-light dark:text-background-dark font-bold rounded-2xl hover:opacity-90 transition-all outline-none"
+        >
           Optimize Again
         </button>
       </div>
