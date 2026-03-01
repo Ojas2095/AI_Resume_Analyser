@@ -25,8 +25,5 @@ COPY app/ ./app/
 # Expose FastAPI port
 EXPOSE 8000
 
-# Health check — wait up to 30s for the server to be ready
-HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Railway injects $PORT dynamically; fall back to 8000 for local use
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
