@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,7 +7,28 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const navigate = useNavigate();
 
   // Auth context
-  const { currentUser, userRole, logout } = useAuth();
+  const { currentUser, userRole, logout, saveUserRole } = useAuth();
+  const [showRoleMenu, setShowRoleMenu] = useState(false);
+  const roleMenuRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (roleMenuRef.current && !roleMenuRef.current.contains(e.target)) {
+        setShowRoleMenu(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  async function handleSwitchRole(newRole) {
+    if (!currentUser || newRole === userRole) { setShowRoleMenu(false); return; }
+    await saveUserRole(currentUser.uid, newRole);
+    setShowRoleMenu(false);
+    navigate(newRole === 'hr' ? '/hr' : '/dashboard');
+  }
+
 
   const navItems = [
     { to: '/', label: 'Home', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -78,6 +99,53 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          {/* Role Switcher */}
+          {currentUser && userRole && (
+            <div className="relative" ref={roleMenuRef}>
+              <button
+                onClick={() => setShowRoleMenu(!showRoleMenu)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground-light/5 dark:bg-foreground-dark/5 hover:bg-primary/10 border border-glass-border-light dark:border-glass-border-dark transition-all text-xs font-bold"
+              >
+                <span>{userRole === 'hr' ? '💼' : '🎓'}</span>
+                <span className="hidden sm:inline capitalize">{userRole}</span>
+                <svg className="w-3 h-3 text-foreground-light/50 dark:text-foreground-dark/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {showRoleMenu && (
+                <div className="absolute right-0 mt-2 w-48 py-2 bg-surface-light dark:bg-surface-dark border border-glass-border-light dark:border-glass-border-dark rounded-2xl shadow-xl shadow-black/10 z-50 overflow-hidden">
+                  <div className="px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-foreground-light/50 dark:text-foreground-dark/50 border-b border-foreground-light/10 dark:border-foreground-dark/10">
+                    Switch Role
+                  </div>
+                  <button
+                    onClick={() => handleSwitchRole('student')}
+                    className={`w-full text-left px-4 py-3 text-sm font-medium flex items-center gap-3 transition-colors ${userRole === 'student' ? 'bg-primary/10 text-primary' : 'hover:bg-foreground-light/5 dark:hover:bg-foreground-dark/5'}`}
+                  >
+                    <span className="text-xl">🎓</span>
+                    <div>
+                      <div>Student Mode</div>
+                      <div className="text-[10px] opacity-70">Analyze my resume</div>
+                    </div>
+                    {userRole === 'student' && <span className="ml-auto text-primary">✓</span>}
+                  </button>
+                  <button
+                    onClick={() => handleSwitchRole('hr')}
+                    className={`w-full text-left px-4 py-3 text-sm font-medium flex items-center gap-3 transition-colors ${userRole === 'hr' ? 'bg-secondary/10 text-secondary' : 'hover:bg-foreground-light/5 dark:hover:bg-foreground-dark/5'}`}
+                  >
+                    <span className="text-xl">💼</span>
+                    <div>
+                      <div>HR Mode</div>
+                      <div className="text-[10px] opacity-70">Bulk screening</div>
+                    </div>
+                    {userRole === 'hr' && <span className="ml-auto text-secondary">✓</span>}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Dark mode toggle */}
           <button onClick={toggleDarkMode}
             className="p-2 rounded-full hover:bg-foreground-light/5 dark:hover:bg-foreground-dark/5 transition-all text-foreground-light/60 dark:text-foreground-dark/60"
