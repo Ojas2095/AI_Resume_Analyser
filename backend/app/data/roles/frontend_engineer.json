@@ -1,0 +1,17 @@
+{
+  "role": "Frontend Engineer",
+  "required_skills": [
+    "html",
+    "css",
+    "javascript",
+    "react",
+    "typescript",
+    "git"
+  ],
+  "nice_to_have": [
+    "redux",
+    "next.js",
+    "jest",
+    "docker"
+  ]
+}

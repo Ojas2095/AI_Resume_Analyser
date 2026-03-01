@@ -1,0 +1,17 @@
+{
+  "role": "Product Manager",
+  "required_skills": [
+    "product strategy",
+    "agile",
+    "user research",
+    "analytics",
+    "communication"
+  ],
+  "nice_to_have": [
+    "sql",
+    "jira",
+    "figma",
+    "market analysis",
+    "roadmapping"
+  ]
+}

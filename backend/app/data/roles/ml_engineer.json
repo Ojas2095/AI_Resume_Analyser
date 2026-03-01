@@ -1,0 +1,19 @@
+{
+    "role": "ML Engineer",
+    "required_skills": [
+        "python",
+        "machine learning",
+        "pandas",
+        "numpy",
+        "sql",
+        "git"
+    ],
+    "nice_to_have": [
+        "tensorflow",
+        "pytorch",
+        "scikit-learn",
+        "spark",
+        "aws",
+        "docker"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+  "role": "Data Scientist",
+  "required_skills": [
+    "python",
+    "machine learning",
+    "statistics",
+    "pandas",
+    "numpy"
+  ],
+  "nice_to_have": [
+    "tensorflow",
+    "scikit-learn",
+    "sql",
+    "jupyter",
+    "aws"
+  ]
+}

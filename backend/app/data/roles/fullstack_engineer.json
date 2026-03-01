@@ -1,0 +1,18 @@
+{
+    "role": "Fullstack Engineer",
+    "required_skills": [
+        "javascript",
+        "react",
+        "node.js",
+        "sql",
+        "git",
+        "rest api"
+    ],
+    "nice_to_have": [
+        "typescript",
+        "docker",
+        "aws",
+        "mongodb",
+        "next.js"
+    ]
+}

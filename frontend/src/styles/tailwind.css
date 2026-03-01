@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark transition-colors duration-500 selection:bg-primary/20;
+  }
+}
+
+@layer components {
+  .glass {
+    backdrop-filter: blur(16px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  .dark .glass {
+    background-color: rgba(10, 18, 34, 0.48);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .ai-glow {
+    position: relative;
+  }
+
+  .ai-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    border-radius: inherit;
+    background-color: rgba(0, 102, 204, 0.2);
+    filter: blur(24px);
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  .ai-glow:hover::after {
+    opacity: 1;
+  }
+
+  .nav-pill {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+  }
+
+  .dark .nav-pill {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-pill:hover {
+    transform: translateX(-50%) scale(1.02);
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.animate-page-in {
+  animation: page-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scan {
+  0% {
+    top: 0%;
+    box-shadow: 0 0 20px 2px rgba(0, 102, 204, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 30px 4px rgba(0, 102, 204, 0.6);
+  }
+
+  100% {
+    top: 100%;
+    box-shadow: 0 0 20px 2px rgba(0, 102, 204, 0.2);
+  }
+}
+
+@keyframes data-pulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleX(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1.05);
+  }
+}
+
+.animate-scan {
+  animation: scan 3s ease-in-out infinite;
+}
+
+.animate-data-pulse {
+  animation: data-pulse 2s ease-in-out infinite;
+}

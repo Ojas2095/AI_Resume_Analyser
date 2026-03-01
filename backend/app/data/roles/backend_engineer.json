@@ -1,0 +1,17 @@
+{
+  "role": "Backend Engineer",
+  "required_skills": [
+    "python",
+    "sql",
+    "api",
+    "git",
+    "linux"
+  ],
+  "nice_to_have": [
+    "docker",
+    "kubernetes",
+    "aws",
+    "fastapi",
+    "postgresql"
+  ]
+}

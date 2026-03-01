@@ -1,0 +1,12 @@
+{
+    "include": [
+        "app"
+    ],
+    "pythonVersion": "3.13",
+    "pythonPlatform": "Windows",
+    "venvPath": ".",
+    "venv": ".venv",
+    "reportMissingImports": true,
+    "reportMissingModuleSource": false,
+    "typeCheckingMode": "basic"
+}

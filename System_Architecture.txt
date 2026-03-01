@@ -1,0 +1,8 @@
+Resume Upload 
+Text Extraction Engine
+Section and Entity Detector
+Skill + Experience Analyser
+Role matching Engine
+Scoring Engine ( Scores which can be explained)
+LLM Suggestion Layer
+User Dashboard

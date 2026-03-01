@@ -1,0 +1,274 @@
+{
+  "python": [
+    "python"
+  ],
+  "java": [
+    "java"
+  ],
+  "javascript": [
+    "javascript",
+    "js"
+  ],
+  "typescript": [
+    "typescript",
+    "ts"
+  ],
+  "react": [
+    "react",
+    "reactjs"
+  ],
+  "node.js": [
+    "node",
+    "node.js",
+    "nodejs"
+  ],
+  "fastapi": [
+    "fastapi"
+  ],
+  "django": [
+    "django"
+  ],
+  "flask": [
+    "flask"
+  ],
+  "sql": [
+    "sql",
+    "mysql",
+    "postgresql",
+    "sqlite"
+  ],
+  "mongodb": [
+    "mongodb",
+    "mongo"
+  ],
+  "docker": [
+    "docker",
+    "containerization"
+  ],
+  "git": [
+    "git",
+    "github",
+    "gitlab"
+  ],
+  "aws": [
+    "aws",
+    "amazon web services",
+    "amazon aws"
+  ],
+  "html": [
+    "html",
+    "html5"
+  ],
+  "css": [
+    "css",
+    "css3",
+    "sass",
+    "scss"
+  ],
+  "redux": [
+    "redux",
+    "redux toolkit"
+  ],
+  "next.js": [
+    "next.js",
+    "nextjs",
+    "next"
+  ],
+  "jest": [
+    "jest",
+    "testing library"
+  ],
+  "api": [
+    "api",
+    "rest",
+    "restful",
+    "rest api",
+    "graphql",
+    "grpc"
+  ],
+  "rest api": [
+    "rest api",
+    "restful api",
+    "rest",
+    "graphql"
+  ],
+  "linux": [
+    "linux",
+    "unix",
+    "bash",
+    "shell scripting"
+  ],
+  "kubernetes": [
+    "kubernetes",
+    "k8s"
+  ],
+  "ci/cd": [
+    "ci/cd",
+    "ci cd",
+    "github actions",
+    "gitlab ci",
+    "jenkins",
+    "circleci",
+    "pipeline"
+  ],
+  "terraform": [
+    "terraform",
+    "infrastructure as code",
+    "iac"
+  ],
+  "ansible": [
+    "ansible"
+  ],
+  "jenkins": [
+    "jenkins"
+  ],
+  "helm": [
+    "helm",
+    "helm charts"
+  ],
+  "monitoring": [
+    "monitoring",
+    "prometheus",
+    "grafana",
+    "datadog",
+    "cloudwatch"
+  ],
+  "machine learning": [
+    "machine learning",
+    "ml",
+    "deep learning",
+    "neural network",
+    "artificial intelligence",
+    "ai"
+  ],
+  "statistics": [
+    "statistics",
+    "statistical",
+    "stats",
+    "probability"
+  ],
+  "pandas": [
+    "pandas"
+  ],
+  "numpy": [
+    "numpy"
+  ],
+  "tensorflow": [
+    "tensorflow",
+    "tf",
+    "keras"
+  ],
+  "pytorch": [
+    "pytorch",
+    "torch"
+  ],
+  "scikit-learn": [
+    "scikit-learn",
+    "sklearn"
+  ],
+  "jupyter": [
+    "jupyter",
+    "jupyter notebook"
+  ],
+  "spark": [
+    "spark",
+    "apache spark",
+    "pyspark"
+  ],
+  "nlp": [
+    "nlp",
+    "natural language processing",
+    "spacy",
+    "nltk"
+  ],
+  "computer vision": [
+    "computer vision",
+    "opencv",
+    "image recognition"
+  ],
+  "data pipelines": [
+    "data pipelines",
+    "etl",
+    "airflow",
+    "data engineering"
+  ],
+  "agile": [
+    "agile",
+    "scrum",
+    "kanban",
+    "sprint",
+    "jira"
+  ],
+  "product strategy": [
+    "product strategy",
+    "product management",
+    "product roadmap"
+  ],
+  "user research": [
+    "user research",
+    "ux research",
+    "user interviews",
+    "usability testing"
+  ],
+  "analytics": [
+    "analytics",
+    "google analytics",
+    "data analysis",
+    "mixpanel",
+    "tableau"
+  ],
+  "communication": [
+    "communication",
+    "stakeholder management",
+    "presentation",
+    "leadership"
+  ],
+  "jira": [
+    "jira",
+    "confluence",
+    "trello",
+    "asana"
+  ],
+  "figma": [
+    "figma",
+    "sketch",
+    "adobe xd"
+  ],
+  "wireframing": [
+    "wireframing",
+    "wireframes",
+    "mockups",
+    "prototyping"
+  ],
+  "user flows": [
+    "user flows",
+    "user journey",
+    "ux flows"
+  ],
+  "accessibility": [
+    "accessibility",
+    "wcag",
+    "aria",
+    "a11y"
+  ],
+  "market analysis": [
+    "market analysis",
+    "market research",
+    "competitive analysis"
+  ],
+  "roadmapping": [
+    "roadmapping",
+    "roadmap",
+    "product roadmap"
+  ],
+  "postgresql": [
+    "postgresql",
+    "postgres"
+  ],
+  "prototyping": [
+    "prototyping",
+    "prototype",
+    "figma prototype",
+    "invision"
+  ]
+}

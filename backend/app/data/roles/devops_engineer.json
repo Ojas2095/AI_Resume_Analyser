@@ -1,0 +1,18 @@
+{
+    "role": "DevOps Engineer",
+    "required_skills": [
+        "linux",
+        "docker",
+        "kubernetes",
+        "ci/cd",
+        "git",
+        "aws"
+    ],
+    "nice_to_have": [
+        "terraform",
+        "ansible",
+        "jenkins",
+        "helm",
+        "monitoring"
+    ]
+}
