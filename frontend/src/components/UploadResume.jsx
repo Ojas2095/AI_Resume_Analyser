@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const UploadResume = ({ onAnalysisComplete, onUploadStart }) => {
   const [file, setFile] = useState(null);
@@ -12,7 +12,7 @@ const UploadResume = ({ onAnalysisComplete, onUploadStart }) => {
 
   // Fetch available roles from the API on mount
   useEffect(() => {
-    axios.get('/api/v1/roles')
+    api.get('/api/v1/roles')
       .then(res => {
         const roles = res.data.roles || [];
         setAvailableRoles(roles);
@@ -67,7 +67,7 @@ const UploadResume = ({ onAnalysisComplete, onUploadStart }) => {
     }
 
     try {
-      const response = await axios.post(`/api/v1/resume/upload?role=${role}`, formData, {
+      const response = await api.post(`/api/v1/resume/upload?role=${role}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

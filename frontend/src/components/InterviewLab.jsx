@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const InterviewLab = ({ questions, resumeText, onExit }) => {
     const [currentIdx, setCurrentIdx] = useState(0);
@@ -12,7 +12,7 @@ const InterviewLab = ({ questions, resumeText, onExit }) => {
         if (!answer.trim()) return;
         setLoading(true);
         try {
-            const response = await axios.post('/api/v1/interview/evaluate', {
+            const response = await api.post('/api/v1/interview/evaluate', {
                 question: questions[currentIdx],
                 answer: answer,
                 resume_context: resumeText

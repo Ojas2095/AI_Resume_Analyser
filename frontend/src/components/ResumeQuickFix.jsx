@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const ResumeQuickFix = () => {
     const [bullet, setBullet] = useState('');
@@ -13,7 +13,7 @@ const ResumeQuickFix = () => {
         setError('');
         setOptimized('');
         try {
-            const response = await axios.post('/api/v1/optimize/bullet', { bullet_point: bullet });
+            const response = await api.post('/api/v1/optimize/bullet', { bullet_point: bullet });
             setOptimized(response.data.optimized);
         } catch (err) {
             setError(err.response?.data?.detail || 'Failed to optimize. Please try again.');

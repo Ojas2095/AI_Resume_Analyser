@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 const CoverLetterGenerator = ({ resumeText, jdText }) => {
     const [coverLetter, setCoverLetter] = useState('');
@@ -12,7 +12,7 @@ const CoverLetterGenerator = ({ resumeText, jdText }) => {
         setLoading(true);
         setError('');
         try {
-            const response = await axios.post('/api/v1/generate/cover-letter', {
+            const response = await api.post('/api/v1/generate/cover-letter', {
                 resume_text: resumeText,
                 jd_text: jdText
             });

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
 const TIER_CONFIG = {
@@ -78,7 +78,7 @@ export default function HRDashboard() {
 
     // Load roles on mount
     React.useEffect(() => {
-        axios.get('/api/v1/roles').then(res => {
+        api.get('/api/v1/roles').then(res => {
             setAvailableRoles(res.data.roles || []);
             if (res.data.roles?.length) setRole(res.data.roles[0].slug);
         }).catch(() => { });
@@ -111,7 +111,7 @@ export default function HRDashboard() {
             formData.append('role', role);
             if (jdText.trim()) formData.append('jd_text', jdText.trim());
 
-            const res = await axios.post('/api/v1/hr/bulk-screen', formData, {
+            const res = await api.post('/api/v1/hr/bulk-screen', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             setResults(res.data);

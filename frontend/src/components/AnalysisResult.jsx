@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import ScoreMeter from './ScoreMeter';
 import SkillGapChart from './SkillGapChart';
 import KeywordHeatmap from './KeywordHeatmap';
@@ -31,7 +31,7 @@ const AnalysisResult = ({ result }) => {
 
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.post('/api/v1/export/pdf', {
+      const response = await api.post('/api/v1/export/pdf', {
         resume_text: resume_text,
         role: role_match.role || 'Professional',
         score: score
