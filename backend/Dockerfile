@@ -11,19 +11,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
+# Download spacy model into the install prefix so it's available at runtime
+RUN PYTHONPATH=/install/lib/python3.12/site-packages python -m spacy download en_core_web_sm --target /install/lib/python3.12/site-packages
+
 # ── Runtime stage ─────────────────────────────────────────────────────────────
 FROM python:3.12-slim
 
 WORKDIR /app
 
-# Copy installed packages from builder
+# Copy installed packages from builder (includes spacy + model)
 COPY --from=builder /install /usr/local
 
 # Copy application source
 COPY app/ ./app/
-
-# Download spacy model
-RUN python -m spacy download en_core_web_sm
 
 # Expose FastAPI port
 EXPOSE 8000

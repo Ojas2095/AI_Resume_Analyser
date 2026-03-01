@@ -7,6 +7,5 @@ openai
 pydantic-settings
 reportlab
 spacy
-sentence-transformers
 textstat
 scikit-learn
