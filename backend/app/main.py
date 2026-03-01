@@ -17,7 +17,12 @@ app = FastAPI(title="AI Resume Reviewer")
 # CORS Configuration — must be registered BEFORE routers
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://ai-resume-analyser-chi-liard.vercel.app",
+        "https://ai-resume-analyser.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # covers all Vercel preview URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
