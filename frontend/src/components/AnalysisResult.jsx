@@ -6,6 +6,26 @@ import KeywordHeatmap from './KeywordHeatmap';
 import ResumeQuickFix from './ResumeQuickFix';
 import CoverLetterGenerator from './CoverLetterGenerator';
 
+const MiniMeter = ({ score, title }) => {
+  const getScoreColor = (s) => s >= 80 ? 'text-primary' : s >= 60 ? 'text-secondary' : 'text-red-500';
+  const getScoreBg = (s) => s >= 80 ? '#0066CC' : s >= 60 ? '#FF9900' : '#EF4444';
+
+  return (
+    <div className="flex flex-col items-center">
+      <div className="relative w-20 h-20 mb-3">
+        <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+          <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" className="text-foreground-light/10 dark:text-foreground-dark/10" />
+          <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke={getScoreBg(score)} strokeWidth="3" strokeDasharray={`${score}, 100`} />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className={`text-lg font-bold ${getScoreColor(score)}`}>{score.toFixed(0)}</span>
+        </div>
+      </div>
+      <p className="font-bold text-sm text-center">{title}</p>
+    </div>
+  );
+};
+
 const AnalysisResult = ({ result }) => {
   const [showQuestions, setShowQuestions] = useState(false);
 
@@ -104,6 +124,83 @@ const AnalysisResult = ({ result }) => {
 
       {/* Keyword Heatmap */}
       <KeywordHeatmap keywords={keyword_heatmap} />
+
+      {/* NEW SECTION: ATS Compliance & Linguistic Quality */}
+      {(result.ats_metrics || result.readability_metrics || result.semantic_match) && (
+        <div className="p-8 rounded-3xl glass border border-glass-border-light dark:border-glass-border-dark ai-glow overflow-hidden">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-3 bg-primary/10 text-primary rounded-xl">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold">ATS Compliance & Linguistic Quality</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            {result.ats_metrics && (
+              <div className="p-6 rounded-2xl bg-foreground-light/5 dark:bg-foreground-dark/5 border border-glass-border-light dark:border-glass-border-dark flex flex-col items-center justify-center">
+                <MiniMeter score={result.ats_metrics.score} title="Structural ATS Pass" />
+              </div>
+            )}
+            {result.semantic_match && (
+              <div className="p-6 rounded-2xl bg-foreground-light/5 dark:bg-foreground-dark/5 border border-glass-border-light dark:border-glass-border-dark flex flex-col items-center justify-center">
+                <MiniMeter score={result.semantic_match.score} title="Semantic JD Match" />
+              </div>
+            )}
+            {result.readability_metrics && (
+              <div className="p-6 rounded-2xl bg-foreground-light/5 dark:bg-foreground-dark/5 border border-glass-border-light dark:border-glass-border-dark flex flex-col items-center justify-center">
+                <MiniMeter score={result.readability_metrics.score} title="Readability & Impact" />
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-primary">Structural & Semantic Feedback</h4>
+              <div className="space-y-3">
+                {result.ats_metrics?.feedback.map((f, i) => (
+                  <div key={`ats-${i}`} className="text-sm text-foreground-light/80 dark:text-foreground-dark/80 flex items-start gap-2">
+                    <span className="text-primary opacity-50 mt-0.5">•</span> {f}
+                  </div>
+                ))}
+                {result.semantic_match?.feedback.map((f, i) => (
+                  <div key={`sem-${i}`} className="text-sm text-foreground-light/80 dark:text-foreground-dark/80 flex items-start gap-2">
+                    <span className="text-primary opacity-50 mt-0.5">•</span> {f}
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-3 mt-4">
+                <div className={`px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-lg ${result.ats_metrics?.metrics?.has_email ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>Email Parsed</div>
+                <div className={`px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-lg ${result.ats_metrics?.metrics?.has_phone ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>Phone Parsed</div>
+                <div className={`px-3 py-1 text-[10px] uppercase tracking-wider font-bold rounded-lg ${result.ats_metrics?.metrics?.has_linkedin ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>LinkedIn Parsed</div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="text-sm font-bold uppercase tracking-widest text-secondary">Cliché & Language Warning</h4>
+              <div className="space-y-3">
+                {result.readability_metrics?.feedback.map((f, i) => (
+                  <div key={`read-${i}`} className="text-sm text-foreground-light/80 dark:text-foreground-dark/80 flex items-start gap-2">
+                    <span className="text-secondary opacity-50 mt-0.5">•</span> {f}
+                  </div>
+                ))}
+              </div>
+
+              {result.readability_metrics?.metrics?.buzzwords_found?.length > 0 && (
+                <div className="mt-4 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                  <p className="text-xs font-bold text-red-500 uppercase mb-3">Flagged Buzzwords (Avoid):</p>
+                  <div className="flex flex-wrap gap-2">
+                    {result.readability_metrics.metrics.buzzwords_found.map((bw, idx) => (
+                      <span key={idx} className="px-2 py-1 bg-red-500/10 text-red-500 text-xs font-mono rounded-md">{bw}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Role Gap Section */}
       <div className="p-8 rounded-3xl glass border border-glass-border-light dark:border-glass-border-dark ai-glow overflow-hidden">

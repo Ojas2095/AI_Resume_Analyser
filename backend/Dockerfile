@@ -22,6 +22,9 @@ COPY --from=builder /install /usr/local
 # Copy application source
 COPY app/ ./app/
 
+# Download spacy model
+RUN python -m spacy download en_core_web_sm
+
 # Expose FastAPI port
 EXPOSE 8000
 

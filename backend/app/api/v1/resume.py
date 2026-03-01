@@ -10,6 +10,9 @@ from app.services.sectioning.section_detector import detect_sections
 from app.services.nlp.skill_extractor import extract_skills
 from app.services.scoring.scorer import calculate_score
 from app.services.llm.suggestions import generate_suggestions
+from app.services.ml_engine.ats_parser import calculate_ats_structural_score
+from app.services.ml_engine.semantic_matcher import calculate_semantic_match
+from app.services.ml_engine.readability_scorer import analyze_readability_and_cliches
 from app.core.logger import logger
 
 router = APIRouter()
@@ -60,6 +63,11 @@ async def upload_resume(
     role_match = match_role(skills, role_data)
     score = calculate_score(role_match, sections)
     suggestions = generate_suggestions(role_match, skills, sections, jd_text)
+    
+    # Run the offline ML engines
+    ats_score = calculate_ats_structural_score(cleaned, sections)
+    readability_score = analyze_readability_and_cliches(cleaned)
+    semantic_score = calculate_semantic_match(cleaned, jd_text) if jd_text else None
 
     # Simplified Heatmap Data: Skills found + strength based on mentions/importance
     # In a real app, this would be more sophisticated
@@ -73,6 +81,9 @@ async def upload_resume(
         "resume_text": cleaned,
         "role_match": role_match,
         "score": score,
+        "ats_metrics": ats_score,
+        "readability_metrics": readability_score,
+        "semantic_match": semantic_score,
         "suggestions": suggestions,
         "keyword_heatmap": keyword_heatmap,
         "jd_provided": bool(jd_text),
