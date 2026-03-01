@@ -191,9 +191,9 @@ const Dashboard = () => {
               </div>
               <h4 className="text-lg font-bold mb-2">Need Assistance?</h4>
               <p className="text-white/80 text-sm mb-6">Our experts are here to help you refine your professional identity.</p>
-              <button className="px-6 py-2 bg-white text-primary font-bold rounded-xl text-sm hover:bg-white/90 transition-all-custom">
+              <a href="mailto:support@resumepro.ai" className="inline-block mt-4 px-6 py-2 bg-white text-primary font-bold rounded-xl text-sm hover:bg-white/90 transition-all-custom">
                 Contact Support
-              </button>
+              </a>
             </div>
           </div>
         </div>

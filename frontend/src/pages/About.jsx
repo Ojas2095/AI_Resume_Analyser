@@ -226,9 +226,9 @@ const About = () => {
           <p className="text-xl mb-12 text-foreground-light/80 dark:text-foreground-dark/80 leading-relaxed">
             We'd love to hear from you. Reach out to learn more about how ResumePro can help your career.
           </p>
-          <button className="bg-primary-to-secondary hover:opacity-80 text-surface-light dark:text-surface-dark font-bold py-5 px-12 rounded-xl text-xl transition-all transform hover:scale-105 shadow-2xl">
+          <a href="mailto:contact@resumepro.ai" className="bg-primary-to-secondary hover:opacity-80 text-surface-light dark:text-surface-dark font-bold py-5 px-12 rounded-xl text-xl transition-all transform hover:scale-105 shadow-2xl inline-block">
             📧 Contact Us
-          </button>
+          </a>
         </div>
       </section>
     </div>
