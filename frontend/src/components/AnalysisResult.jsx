@@ -112,7 +112,7 @@ const AnalysisResult = ({ result }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                 </svg>
                 <div className="text-2xl font-black">{item.value}%</div>
-                <div className="text-xs font-bold uppercase tracking-wider text-foreground-light/40">{item.label}</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-foreground-light/70 dark:text-foreground-dark/70 mt-1">{item.label}</div>
               </div>
             ))}
           </div>
