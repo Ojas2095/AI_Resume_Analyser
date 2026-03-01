@@ -96,14 +96,16 @@ const Home = () => {
           </div>
 
           {/* Hero Image / Mockup Placeholder */}
-          <div className="mt-20 relative px-4">
-            <div className="max-w-5xl mx-auto glass rounded-3xl border border-glass-border-light dark:border-glass-border-dark shadow-2xl overflow-hidden aspect-video flex items-center justify-center bg-surface-light/30 dark:bg-surface-dark/30 ai-glow">
-              <div className="text-foreground-light/20 dark:text-foreground-dark/20 flex flex-col items-center">
-                <svg className="w-20 h-20 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="text-sm font-medium uppercase tracking-widest">Interactive Dashboard Preview</span>
+          <div className="mt-20 relative px-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="max-w-5xl mx-auto glass rounded-3xl border border-glass-border-light dark:border-glass-border-dark shadow-2xl overflow-hidden aspect-video flex items-center justify-center bg-surface-light/30 dark:bg-surface-dark/30 ai-glow group relative cursor-pointer">
+              <div className="absolute inset-0 bg-gradient-to-t from-background-light/80 to-transparent dark:from-background-dark/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end justify-center pb-8 text-sm font-bold tracking-widest uppercase">
+                Interactive Dashboard Preview
               </div>
+              <img
+                src="/dashboard-preview.png"
+                alt="Interactive Dashboard Preview"
+                className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-700"
+              />
             </div>
           </div>
         </div>
